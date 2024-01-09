@@ -1,0 +1,14 @@
+﻿@inject IJSRuntime JS
+
+<h3>Grafica</h3>
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await JS.InvokeVoidAsync("Graficar");
+        JS.InvokeVoidAsync("Graficar");
+    }
+}

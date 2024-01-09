@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sensor de Temperatura</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="test3BlazorWA.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <!--Para las graficas-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.Graficar = async () => {
+
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["2024/08/21:10:05", "2024/08/21:10:15", "2024/08/21:10:25", "2024/08/21:10:35", "2024/08/21:10:45",
+                        "2024/08/21:10:55", "2024/08/21:11:05", "2024/08/21:11:15", "2024/08/21:11:25", "2024/08/21:11:35"],
+                    datasets: [{
+                        label: 'Temperaturas del sensor',
+                        data: [32, 25, 17, 0, -5, 10, 15, 20, 25, 30],
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+
+</html>
