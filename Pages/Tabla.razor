@@ -5,7 +5,7 @@
 
 <h1>Tabla de temperaturas</h1>
 
-@if (forecasts == null)
+@if (temperaturas == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -17,17 +17,15 @@ else
                 <th>Date</th>
                 <th>Temp. (C)</th>
                 <th>Temp. (F)</th>
-                <th>Summary</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var temperatura in temperaturas)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@temperatura.Date</td>
+                    <td>@temperatura.TemperatureC</td>
+                    <td>@temperatura.TemperatureF</td>
                 </tr>
             }
         </tbody>
@@ -35,22 +33,20 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private TemperatureDTO[]? temperaturas;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        temperaturas = await Http.GetFromJsonAsync<TemperatureDTO[]>("http://localhost:3000/");
     }
 
-    public class WeatherForecast
+    public class TemperatureDTO
     {
-        public DateOnly Date { get; set; }
+        public string? Date { get; set; }
 
-        public int TemperatureC { get; set; }
+        public float TemperatureC { get; set; }
 
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public float TemperatureF => 32 + (float)(TemperatureC / 0.5556);
     }
 }
 

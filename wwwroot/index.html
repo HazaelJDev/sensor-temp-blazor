@@ -30,21 +30,35 @@
     <!--Para las graficas-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        window.Graficar = async () => {
+        window.Test = async (fechas, temperatures) => {
+            console.log(fechas)
+            console.table(temperatures)
+            console.log("esto es en la funcion test")
+        }
+
+        window.Graficar = async (fechas,temperatures) => {
+
+            console.table(fechas)
+            console.table(temperatures)
 
             const ctx = document.getElementById('myChart');
 
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["2024/08/21:10:05", "2024/08/21:10:15", "2024/08/21:10:25", "2024/08/21:10:35", "2024/08/21:10:45",
-                        "2024/08/21:10:55", "2024/08/21:11:05", "2024/08/21:11:15", "2024/08/21:11:25", "2024/08/21:11:35"],
+                    labels: fechas,
+                    /*labels: ["2024/08/21:10:05", "2024/08/21:10:15", "2024/08/21:10:25", "2024/08/21:10:35", "2024/08/21:10:45",
+                        "2024/08/21:10:55", "2024/08/21:11:05", "2024/08/21:11:15", "2024/08/21:11:25", "2024/08/21:11:35"],*/
                     datasets: [{
-                        label: 'Temperaturas del sensor',
-                        data: [32, 25, 17, 0, -5, 10, 15, 20, 25, 30],
+                        label: 'Grados Celsius',
+                        //data: [32.3, 25.4, 17.54, 0.34, -5.32, 10, 15, 20.44, 25, 30],
+                        data: temperatures,
                         fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
+                        //borderColor: 'rgb(75, 192, 192)',
+                        borderColor: 'rgb(242, 41, 41)',
+                        pointRadius: 7,
+                        pointHoverRadius: 15,
+                        tension: 0.2
                     }]
                 },
                 options: {

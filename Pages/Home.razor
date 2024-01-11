@@ -1,5 +1,56 @@
 ﻿@page "/"
+@inject IJSRuntime JS
+@inject HttpClient Http
 
 <PageTitle>Sensor de Temperatura</PageTitle>
 
-<Grafica />
+<h3>Gráfica</h3>
+@if (temperaturas == null)
+{
+    <p><em>Loading...</em></p>
+}
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@code {
+    private TemperatureDTO[]? temperaturas;
+    float[] temperatures;
+    string[] dates;
+
+    protected override async Task OnInitializedAsync()
+    {
+        temperaturas = await Http.GetFromJsonAsync<TemperatureDTO[]>("http://localhost:3000/");
+
+        if (temperaturas.Length > 0)
+        {
+            temperatures = new float[temperaturas.Length];
+            dates = new string[temperaturas.Length];
+
+            for(int i = 0; i<temperaturas.Length; i++)
+            {
+                temperatures[i] = temperaturas[i].TemperatureC;
+                dates[i] = temperaturas[i].Date;
+            }
+            
+            
+            await JS.InvokeVoidAsync("Graficar",[dates, temperatures]);
+            
+        }
+    }
+
+
+
+    public class TemperatureDTO
+    {
+        public string? Date { get; set; }
+
+        public float TemperatureC { get; set; }
+
+        public float TemperatureF => 32 + (float)(TemperatureC / 0.5556);
+    }
+}
+
+
+

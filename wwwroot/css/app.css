@@ -101,3 +101,11 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+.sidebar {
+    background-image: linear-gradient(180deg, #F20C0C 0%, #F22929 70%) !important;
+}
+
+.logoImg{
+  border-radius: 4px;
+}
